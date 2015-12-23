@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<head>
+    <title>Numerical Game Clients</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>hello</h1>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                <form class="form-inline well well-sm">
+                    <div class="form-group">
+                        <label for="clientSelect">Choose client:</label>
+                        <select class="form-control" id="clientSelect">
+                            <option value="lotto">Lotto</option>
+                            <option value="keno">Keno</option>
+                        </select>
+                    </div>        
+                </form>
+            </div>
+            
+        </div>
+        
+        <div class="row">
+            <div class="col-xs-12 col-md-7 well">
+                <h3>Number selections</h3>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <td><input type="button" value="1" class="btn btn-default button" data-bind="click: addNumber"></td>
+                            <td><input type="button" value="2" class="btn btn-default button" data-bind="click: addNumber"</td>
+                            <td><input type="button" value="3" class="btn btn-default button" data-bind="click: addNumber"></td>
+                            <td><input type="button" value="4" class="btn btn-default button" data-bind="click: addNumber"></td>
+                            <td><input type="button" value="5" class="btn btn-default button" data-bind="click: addNumber"></td>
+                            <td><input type="button" value="6" class="btn btn-default button" data-bind="click: addNumber"></td>
+                            <td><input type="button" value="7" class="btn btn-default button" data-bind="click: addNumber"></td>
+                            <td><input type="button" value="8" class="btn btn-default button" data-bind="click: addNumber"></td>
+                            <td><input type="button" value="9" class="btn btn-default button" data-bind="click: addNumber"></td>
+                            <td><input type="button" value="10" class="btn btn-default button" data-bind="click: addNumber"></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="btn btn-default button">11</a></td>
+                            <td><a href="#" class="btn btn-default button">12</a></td>
+                            <td><a href="#" class="btn btn-default button">13</a></td>
+                            <td><a href="#" class="btn btn-default button">14</a></td>
+                            <td><a href="#" class="btn btn-default button">15</a></td>
+                            <td><a href="#" class="btn btn-default button">16</a></td>
+                            <td><a href="#" class="btn btn-default button">17</a></td>
+                            <td><a href="#" class="btn btn-default button">18</a></td>
+                            <td><a href="#" class="btn btn-default button">19</a></td>
+                            <td><a href="#" class="btn btn-default button">20</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="btn btn-default button">21</a></td>
+                            <td><a href="#" class="btn btn-default button">22</a></td>
+                            <td><a href="#" class="btn btn-default button">23</a></td>
+                            <td><a href="#" class="btn btn-default button">24</a></td>
+                            <td><a href="#" class="btn btn-default button">25</a></td>
+                            <td><a href="#" class="btn btn-default button">26</a></td>
+                            <td><a href="#" class="btn btn-default button">27</a></td>
+                            <td><a href="#" class="btn btn-default button">28</a></td>
+                            <td><a href="#" class="btn btn-default button">29</a></td>
+                            <td><a href="#" class="btn btn-default button">30</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="btn btn-default button">31</a></td>
+                            <td><a href="#" class="btn btn-default button">32</a></td>
+                            <td><a href="#" class="btn btn-default button">33</a></td>
+                            <td><a href="#" class="btn btn-default button">34</a></td>
+                            <td><a href="#" class="btn btn-default button">35</a></td>
+                            <td><a href="#" class="btn btn-default button">36</a></td>
+                            <td><a href="#" class="btn btn-default button">37</a></td>
+                            <td><a href="#" class="btn btn-default button">38</a></td>
+                            <td><a href="#" class="btn btn-default button">39</a></td>
+                            <td><a href="#" class="btn btn-default button">40</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="btn btn-default button">41</a></td>
+                            <td><a href="#" class="btn btn-default button">42</a></td>
+                            <td><a href="#" class="btn btn-default button">43</a></td>
+                            <td><a href="#" class="btn btn-default button">44</a></td>
+                            <td><a href="#" class="btn btn-default button">45</a></td>
+                            <td><a href="#" class="btn btn-default button">46</a></td>
+                            <td><a href="#" class="btn btn-default button">47</a></td>
+                            <td><a href="#" class="btn btn-default button">48</a></td>
+                            <td><a href="#" class="btn btn-default button">49</a></td>
+                        </tr>
+                    </table>
+                </div>
+            
+                <div class="">
+                    <button type="button" class="btn btn-default">Clear all</button>
+                    <button type="button" class="btn btn-default">Add column</button>
+                </div>
+            </div>
+            
+            
+            <div class="col-xs-12 col-md-5 well">
+                <h3>Available columns created by the user</h3>
+                <ul data-bind="foreach: column">
+                    <li>
+                        <span data-bind="text: num"></span>
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/knockout/dist/knockout.js"></script>
+    
+    <script>
+    
+        function viewModel(){
+            var self = this;
+            //self.newnum = ko.observable();
+            
+            self.column = ko.observableArray();
+            
+            self.addNumber = function() {
+                self.column.push({num: $('.btn').val()});
+                console.log(self.column());
+            }
+            
+            
+        }
+        
+        ko.applyBindings(new viewModel());
+    
+    </script>
+</body>
+</html>

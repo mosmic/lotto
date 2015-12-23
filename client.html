@@ -1,0 +1,245 @@
+<!doctype html>
+<html>
+<head>
+    <title>Numerical Game Clients</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>hello</h1>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+                <form class="form-inline well well-sm">
+                    <div class="form-group">
+                        <label for="clientSelect">Choose client:</label>
+                        <select class="form-control" id="clientSelect">
+                            <option value="lotto">Lotto</option>
+                            <option value="keno">Keno</option>
+                        </select>
+                    </div>        
+                </form>
+            </div>
+            
+        </div>
+        
+        <div class="row">
+            <div class="col-xs-12 col-md-7 well">
+                <h3>Number selections</h3>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr data-bind="foreach:nrs1to10">
+                            <td>
+                                <input type="button" class="btn btn-default" data-bind="value: $data, click: $parent.addNumber, style: {backgroundColor : $parent.hasBeenAdded($data) ? 'green': ''}">
+                            </td>
+                        </tr>
+                        <tr data-bind="foreach:nrs11to20">
+                            <td>
+                                <input type="button" class="btn btn-default" data-bind="value: $data, click: $parent.addNumber, style: {backgroundColor : $parent.hasBeenAdded($data) ? 'green': ''}">
+                            </td>
+                        </tr>
+                        <tr data-bind="foreach:nrs21to30">
+                            <td>
+                                <input type="button" class="btn btn-default" data-bind="value: $data, click: $parent.addNumber, style: {backgroundColor : $parent.hasBeenAdded($data) ? 'green': ''}">
+                            </td>
+                        </tr>
+                        <tr data-bind="foreach:nrs31to40">
+                            <td>
+                                <input type="button" class="btn btn-default" data-bind="value: $data, click: $parent.addNumber, style: {backgroundColor : $parent.hasBeenAdded($data) ? 'green': ''}">
+                            </td>
+                        </tr>
+                        <tr data-bind="foreach:nrs41to49">
+                            <td>
+                                <input type="button" class="btn btn-default" data-bind="value: $data, click: $parent.addNumber, style: {backgroundColor : $parent.hasBeenAdded($data) ? 'green': ''}">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            
+                <div class="">
+                    <button type="button" class="btn btn-default" data-bind="click: clear">Clear all</button>
+                    <button type="button" class="btn btn-default" data-bind="enable: canAddColumn, click: addColumn ">Add column</button>
+                </div>
+            </div>
+            
+            
+            <div class="col-xs-12 col-md-5 well">
+                <h3>Available columns created by the user</h3>
+                 Column: <strong data-bind="text: column"></strong>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody  data-bind="foreach: columns">
+                        
+                            <tr>
+                                <td class="text-center" data-bind="text: $index() + 1 +'.'"></td>
+                                <!-- ko foreach: $data.column -->
+                                <td><input type="button" class="btn btn-default" data-bind="value: $data"></td>
+                                <!-- /ko -->
+
+                                <td>
+                                    <div class="btn btn-danger" data-bind="click: $parent.removeColumn">Delete</div>
+                                </td>
+                             </tr>
+                         
+                         </tbody>
+                     </table>
+                </div>
+                <div>Total cost: <span data-bind="text: lottoCost"></span> </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/knockout/dist/knockout.js"></script>
+    
+    <script>
+                
+        function viewModel() {
+            var self = this;
+            
+            self.nrs1to10   = ko.observableArray([1,2,3,4,5,6,7,8,9,10]);
+            self.nrs11to20  = ko.observableArray([11,12,13,14,15,16,17,18,19,20]);
+            self.nrs21to30  = ko.observableArray([21,22,23,24,25,26,27,28,29,30]);
+            self.nrs31to40  = ko.observableArray([31,32,33,34,35,36,37,38,39,40]);
+            self.nrs41to49  = ko.observableArray([41,42,43,44,45,46,47,48,49]);
+
+            self.column = ko.observableArray([]);
+            
+            self.columns = ko.observableArray([]);
+            
+            self.canAddColumn = ko.observable(false);
+
+            // checks if we have added a number (result is -1 if not)
+            self.hasBeenAdded = function(data) {
+                return self.column.indexOf(data) >= 0;
+            }
+            
+            // checks if we have picked 6 numbers from left table and returns true
+            self.isFull = ko.computed(function() {
+                return self.column().length > 5;
+            });
+            
+            // checks if we exceed 10 columns in the right table
+            self.isColumnFull = ko.computed(function() {
+                return self.columns().length > 9;
+            });
+            
+            // checks if if we can add a number to a column 
+            self.canAddNum = function(data) {
+                return !self.isFull() && !self.isColumnFull() && !self.hasBeenAdded(data);
+            }
+
+            // If the above argument is true then we can add a number to a column
+            self.addNumber = function(data) {
+                if (self.canAddNum(data)) {
+                    self.column.push(data);
+                    //console.log(self.column());
+                }
+                self.submit();
+            }
+                
+            // a helper function to enable the add column button
+            self.submit = function () {
+                if (self.isFull()) {
+                    self.canAddColumn(true);
+                }
+                
+            };
+            
+            //if the selected columns are less than 10 we can add a column in the columns array
+            self.addColumn = function() {
+                if (!self.isColumnFull()) {
+                    self.columns.push({column:self.column()});
+
+                    console.log(self.columns());
+                    self.lottoCost();
+                    self.clear();
+                }
+            }
+            
+            // clears the selected numbers from the  
+            self.clear = function() {
+                self.column([]);
+                //console.log(self.column());
+                self.canAddColumn(false);
+            }
+            
+            //removes a column from the right table and adjusts the new price
+            self.removeColumn = function() {
+                self.columns.remove(this);
+                self.lottoCost();
+            }
+            
+            // calculate the total cost of lotto client
+            self.lottoCost = ko.computed(function(){
+                return (self.columns().length * 5)
+            })
+        }
+
+        ko.applyBindings(new viewModel());
+        
+    
+/*        function viewModel(){
+            var self = this;
+
+            self.nrs1to10   = ko.observableArray([1,2,3,4,5,6,7,8,9,10]);
+            self.nrs11to20  = ko.observableArray([11,12,13,14,15,16,17,18,19,20]);
+            self.nrs21to30  = ko.observableArray([21,22,23,24,25,26,27,28,29,30]);
+            self.nrs31to40  = ko.observableArray([31,32,33,34,35,36,37,38,39,40]);
+            self.nrs41to49  = ko.observableArray([41,42,43,44,45,46,47,48,49]);
+
+            self.column = ko.observableArray();
+            
+            //self.isSelected = ko.observable(false);
+            
+            
+            self.addNumber = function(data) {
+                self.column.push(data);
+                data.hasBeenAdded = (true);
+                //console.log(self.isSelected());
+                console.log(self.column());
+            }
+            
+        }
+*/
+
+    
+        
+        /*
+        If you want to stick closer to your original code that's possible too. Then you have to tell knockout what argument to pass, using an anonymous function, e.g.:
+
+<td>
+  <input type="button" value="1" data-bind="click: function() { addNumber(1); }">
+</td>
+        */
+        
+        
+        /*
+        <tbody data-bind="foreach: columns">
+                            <tr data-bind="text: $index"></tr>
+                            <tr data-bind="foreach: $data.column">
+                                <!-- <td data-bind="text: ($parentContext.$index() + 1) "></td> -->
+                                <td><input type="button" class="btn btn-default" data-bind="value: $data"</td>
+                            </tr>
+                        </tbody>
+        */
+        
+    </script>
+</body>
+</html>
